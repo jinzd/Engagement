@@ -1,13 +1,22 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
+// import Counter from "./components/Counter";
+import MyNavBar from "./components/MyNavBar";
+import MyBarChart from "./components/MyBarChart";
 
-function App() {
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div>
+      <MyNavBar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <div className="d-inline-block w-75">
+        <MyBarChart />
+      </div>
+      {/* <div className="d-inline-block w-50">
+        <Counter />
+      </div> */}
     </div>
   );
-}
+};
 
 export default App;
