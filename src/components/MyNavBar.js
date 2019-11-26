@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -14,25 +14,29 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import SignupModal from "./SignUp";
+import LoginModal from "./Login";
 
-const MyNavBar = ({ isOpen, setIsOpen }) => {
+const MyNavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <NavbarBrand href="/">ENGAGE+</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto " navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/chart">Chart</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">
                 GitHub
               </NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+
+            <UncontrolledDropdown direction="down" nav inNavbar>
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
@@ -43,6 +47,10 @@ const MyNavBar = ({ isOpen, setIsOpen }) => {
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            <NavItem className={"d-flex flex-column"}>
+              <LoginModal />
+              <SignupModal />
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

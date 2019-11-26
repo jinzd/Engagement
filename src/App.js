@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-// import Counter from "./components/Counter";
 import MyNavBar from "./components/MyNavBar";
 import MyBarChart from "./components/MyBarChart";
-
+import { Route, Switch, Redirect } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [loggedIn, setloggedIn] = useState(false);
   return (
-    <div>
-      <MyNavBar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="d-inline-block w-75">
-        <MyBarChart />
-      </div>
-      {/* <div className="d-inline-block w-50">
-        <Counter />
-      </div> */}
-    </div>
+    <>
+      <MyNavBar setloggedIn={setloggedIn} />
+      <Switch>
+        <Route exact path="/">
+          {loggedIn ? <Redirect to="/chart" /> : <HomePage />}
+        </Route>
+        <Route path="/chart" component={MyBarChart} />
+      </Switch>
+    </>
   );
 };
 
