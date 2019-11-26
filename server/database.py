@@ -1,4 +1,5 @@
 import os
+
 from urllib.parse import urlparse
 
 def parse_db_url(database_url):
