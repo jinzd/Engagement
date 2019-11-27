@@ -17,7 +17,7 @@ import {
 import SignupModal from "./SignUp";
 import LoginModal from "./Login";
 
-const MyNavBar = () => {
+const MyNavBar = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (
@@ -29,11 +29,6 @@ const MyNavBar = () => {
           <Nav className="mr-auto " navbar>
             <NavItem>
               <NavLink href="/chart">Chart</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
             </NavItem>
 
             <UncontrolledDropdown direction="down" nav inNavbar>
@@ -49,7 +44,7 @@ const MyNavBar = () => {
             </UncontrolledDropdown>
             <NavItem className={"d-flex flex-column"}>
               <LoginModal />
-              <SignupModal />
+              <SignupModal toggleLogin={props.toggleLogin} />
             </NavItem>
           </Nav>
         </Collapse>
