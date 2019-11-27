@@ -34,7 +34,7 @@ const SignupModal = props => {
       setUsername(x.target.value);
     } else if (x.target.name === "password") {
       setPassword(x.target.value);
-    } else if (x.target.name === "email") {
+    } else if (x.target.name ==="email"){
       setEmail(x.target.value);
     }
   };
