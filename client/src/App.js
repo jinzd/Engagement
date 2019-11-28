@@ -3,6 +3,7 @@ import MyNavBar from "./components/MyNavBar";
 import MyBarChart from "./components/MyBarChart";
 import { Route, Switch, useHistory } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import Dashboard from "./pages/Dashboard";
 const App = () => {
   const [loggedIn, setloggedIn] = useState(false);
   const history = useHistory();
@@ -28,6 +29,7 @@ const App = () => {
           }}
         />
         <Route path="/chart" component={MyBarChart} />
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
     </>
   );

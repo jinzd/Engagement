@@ -30,6 +30,9 @@ const MyNavBar = props => {
             <NavItem>
               <NavLink href="/chart">Chart</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/dashboard">Dashboard</NavLink>
+            </NavItem>
 
             <UncontrolledDropdown direction="down" nav inNavbar>
               <DropdownToggle nav caret>
