@@ -21,7 +21,7 @@ def index():
         session_data = []
         for session in sessions:
             session_data.append({
-                'date':session.created_at.+strftime('%d-%m-%Y'),
+                'date':session.created_at.strftime('%d-%m-%Y'),
                 'title': session.title,
                 'session_type': session.session_type,
                 'description':session.description
@@ -73,6 +73,7 @@ def create():
             return make_response(jsonify(response), 400) 
     else:
         response = {
-            'status': 'failed'
+            'status': 'failed',
+            'message': 'Authentication failed'
         }
         return make_response(jsonify(response), 400)
