@@ -73,6 +73,7 @@ def create():
             return make_response(jsonify(response), 400)
     else:
         response = {
-            'status': 'failed'
+            'status': 'failed',
+            'message': 'Authentication failed'
         }
         return make_response(jsonify(response), 400)
