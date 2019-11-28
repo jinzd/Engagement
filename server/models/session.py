@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from models.user import User
 
 class Session(BaseModel):
-    name = pw.CharField()
-    session_type = pw.CharField()
-    description = pw.TextField()
-    session = pw.ForeignKeyField(User, backref='sessions')
+    title = pw.CharField(null=False)
+    session_type = pw.CharField(null=False)
+    description = pw.TextField(null=False)
+    user = pw.ForeignKeyField(User, backref='sessions')
