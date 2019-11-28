@@ -4,12 +4,12 @@ from models.base_model import BaseModel
 from models.session import Session
 
 class Engagement(BaseModel):
-    anger = pw.IntegerField()
-    contempt = pw.IntegerField()
-    disgust = pw.IntegerField()
-    fear = pw.IntegerField()
-    happiness = pw.IntegerField()
-    neutral = pw.IntegerField()
-    sadness = pw.IntegerField()
-    surprise = pw.IntegerField()
+    anger = pw.IntegerField(null=False)
+    contempt = pw.IntegerField(null=False)
+    disgust = pw.IntegerField(null=False)
+    fear = pw.IntegerField(null=False)
+    happiness = pw.IntegerField(null=False)
+    neutral = pw.IntegerField(null=False)
+    sadness = pw.IntegerField(null=False)
+    surprise = pw.IntegerField(null=False)
     session = pw.ForeignKeyField(Session, backref='engagements')
