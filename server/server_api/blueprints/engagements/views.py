@@ -1,7 +1,9 @@
 from flask import Flask, Blueprint, jsonify, make_response, request
 from models.engagement import Engagement
 from models.user import User
+from models.session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
+from playhouse.shortcuts import model_to_dict
 import json
 
 engagements_api_blueprint = Blueprint('engagements_api',
@@ -9,8 +11,38 @@ engagements_api_blueprint = Blueprint('engagements_api',
                                       template_folder='templates')
 
 
+@engagements_api_blueprint.route('/raw', methods=['POST'])
+def get_session():
+
+    user = validate_auth(request.headers.get('Authorization'))
+    payload = request.get_json()
+    session_id = payload['session_id']
+    
+    response_data = []
+    if user:
+        sessions = user.sessions.select().where(Session.id == session_id)
+        if len(sessions) > 0:
+            records_dict = []
+            for record in sessions[0].engagements:
+                records_dict.append(model_to_dict(record, recurse=False))
+
+            response_data.append({
+                'data': records_dict,
+                'status': 'success',
+                'message': 'Session successfully saved.'
+            })
+        return make_response(jsonify(response_data)), 200
+
+    response_data.append({
+        'status': 'failed',
+        'message': 'try again later'
+    })
+
+    return make_response(jsonify(response_data)), 400
+
+
 @engagements_api_blueprint.route('/new', methods=['POST'])
-def setNewRecord():
+def set_new_record():
     auth_header = request.headers.get('Authorization')
     if auth_header:
         auth_token = auth_header.split(" ")[1]
@@ -50,3 +82,16 @@ def setNewRecord():
                 return make_response(jsonify(response), 400)
 
     return make_response({'error': 'failed'}, 400)
+
+
+def validate_auth(auth_header):
+    if auth_header:
+        auth_token = auth_header.split(" ")[1]
+        user_id = User.decode_auth_token(auth_token)
+
+        user = User.get(User.id == user_id)
+
+        if user:
+            return user
+
+    return None
