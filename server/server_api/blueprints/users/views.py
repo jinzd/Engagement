@@ -35,7 +35,7 @@ def create():
             email=post_data['email'].lower(),
             password=post_data['password'])
     except:
-        respose = {
+        response = {
             'status' : 'failed',
             'message': 'All fields required'
         }
@@ -97,7 +97,7 @@ def currentuser():
 
 # edit user information
 @users_api_blueprint.route('/edit', methods = ['POST'])
-def hello():
+def edit():
     pass
 
 

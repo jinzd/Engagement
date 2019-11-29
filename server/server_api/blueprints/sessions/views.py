@@ -23,7 +23,8 @@ def index():
         session_data = []
         for session in sessions:
             session_data.append({
-                'date': session.created_at.strftime('%d-%m-%Y'),
+                'id': session.id
+                'date':session.created_at.strftime('%d-%m-%Y'),
                 'title': session.title,
                 'session_type': session.session_type,
                 'description': session.description
