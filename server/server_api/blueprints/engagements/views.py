@@ -5,32 +5,57 @@ from models.session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
 import json
+from .face_api import calculate_engagement
 
 engagements_api_blueprint = Blueprint('engagements_api',
                                       __name__,
                                       template_folder='templates')
 
 
-@engagements_api_blueprint.route('/raw', methods=['POST'])
+@engagements_api_blueprint.route('/', methods=['POST'])
 def get_session():
+    user = validate_auth(request.headers.get('Authorization'))
+    payload = request.get_json()
+    session_id = payload['session_id']
+
+    main_graph = []
+    face_count_graph = []
+    response = {}
+    # moving_average_graph = []
+    if user:
+        raw = get_raw(user, session_id)
+        session = Session.get_by_id(session_id)
+        for record in raw:
+            main_graph.append(
+                {'id': record['id'], 'eng': calculate_engagement(record)})
+            face_count_graph.append(
+                {'id': record['id'], 'face_count': record['face_count']})
+        response['main'] = main_graph
+        response['face_count'] = face_count_graph
+        response['session'] = {
+            'title': session.title, 'session_type': session.session_type, 'description': session.description}
+        return jsonify(response), 200
+
+    return response, 204
+
+
+@engagements_api_blueprint.route('/raw', methods=['POST'])
+def get_session_raw():
 
     user = validate_auth(request.headers.get('Authorization'))
     payload = request.get_json()
     session_id = payload['session_id']
-    
+
     response_data = []
     if user:
-        sessions = user.sessions.select().where(Session.id == session_id)
-        if len(sessions) > 0:
-            records_dict = []
-            for record in sessions[0].engagements:
-                records_dict.append(model_to_dict(record, recurse=False))
+        records_dict = get_raw(user, session_id)
 
-            response_data.append({
-                'data': records_dict,
-                'status': 'success',
-                'message': 'Session successfully saved.'
-            })
+        response_data.append({
+            'data': records_dict,
+            'status': 'success',
+            'message': 'Engagement records retrieved.'
+        })
+
         return make_response(jsonify(response_data)), 200
 
     response_data.append({
@@ -95,3 +120,13 @@ def validate_auth(auth_header):
             return user
 
     return None
+
+
+def get_raw(user, session_id):
+    sessions = user.sessions.select().where(Session.id == session_id)
+    records_dict = []
+    if len(sessions) > 0:
+        for record in sessions[0].engagements:
+            records_dict.append(model_to_dict(record, recurse=False))
+
+    return records_dict

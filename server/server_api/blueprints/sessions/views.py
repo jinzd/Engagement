@@ -3,7 +3,8 @@ from models.user import User
 from models.session import Session
 
 
-sessions_api_blueprint = Blueprint('sessions_api', __name__, template_folder='templates')
+sessions_api_blueprint = Blueprint(
+    'sessions_api', __name__, template_folder='templates')
 
 # get the current users sessions
 @sessions_api_blueprint.route('/', methods=['GET'])
@@ -16,15 +17,16 @@ def index():
         user = User.get(User.id == user_id)
         # print(user)
 
-        sessions = Session.select().where(Session.user==user.id).order_by(Session.id.asc())
+        sessions = Session.select().where(
+            Session.user == user.id).order_by(Session.id.asc())
         # print(sessions)
         session_data = []
         for session in sessions:
             session_data.append({
-                'date':session.created_at.strftime('%d-%m-%Y'),
+                'date': session.created_at.strftime('%d-%m-%Y'),
                 'title': session.title,
                 'session_type': session.session_type,
-                'description':session.description
+                'description': session.description
             })
         response = {'sessions': session_data}
         return make_response(jsonify(response), 200)
@@ -35,7 +37,7 @@ def index():
         }
         return make_response(jsonify(response), 401)
 
-#post new session
+# post new session
 @sessions_api_blueprint.route('/new', methods=['POST'])
 def create():
     auth_header = request.headers.get('Authorization')
@@ -47,10 +49,10 @@ def create():
             'message': 'No authorization header found.'
         }
         return make_response(jsonify(response), 401)
-    
+
     user_id = User.decode_auth_token(auth_token)
     user = User.get(User.id == user_id)
-    
+
     if user:
         post_data = request.get_json()
         session = Session(
@@ -61,15 +63,15 @@ def create():
         )
         if session.save():
             response = {
-				'status': 'success',
-				'message': 'Session successfully saved.'
-			}
+                'status': 'success',
+                'message': 'Session successfully saved.'
+            }
             return make_response(jsonify(response), 201)
         else:
             response = {
                 'status': 'failed',
                 'message': 'Session did not save. Try again later.'
-			}
+            }
             return make_response(jsonify(response), 400)
     else:
         response = {
