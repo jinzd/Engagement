@@ -7,6 +7,7 @@ from playhouse.shortcuts import model_to_dict
 import json
 from .face_api import calculate_engagement
 
+
 engagements_api_blueprint = Blueprint('engagements_api',
                                       __name__,
                                       template_folder='templates')
