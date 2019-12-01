@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+// import axios from "axios";
 import {
   Button,
   Modal,
@@ -18,57 +18,81 @@ const SignupModal = props => {
   const [modal, setModal] = useState(false);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
-  const [usernameValid, setusernameValid] = useState(true);
+  const [usernameValid /*, setusernameValid*/] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const toggle = () => setModal(!modal);
 
+  // const handleUsernameCheck = e => {
+  //   const newUsername = e.target.value;
+  //   if (newUsername.length >= 6) {
+  //     axios
+  //       .get(`http://localhost:5000/api/v1/users/username=${newUsername}`)
+  //       .then(resp => {
+  //         // console.log(resp);
+  //         if (resp.data.valid) {
+  //           setusernameValid(true);
+  //         } else {
+  //           setusernameValid(false);
+  //         }
+  //       })
+  //       .catch(error => {
+  //         // If unsuccessful, we notify users what went wrong
+  //         console.log(error.response);
+  //       });
+  //   }
+  // };
+
   const handleInput = e => {
     let x = { ...e };
     console.log(x.target.name);
     if (x.target.name === "name") {
-      let delay = setTimeout(() => handleUsernameCheck(x), 300);
-      setName(x.target.value, delay);
+      setName(x.target.value);
     } else if (x.target.name === "username") {
       setUsername(x.target.value);
     } else if (x.target.name === "password") {
       setPassword(x.target.value);
-    } else if (x.target.name ==="email"){
+    } else if (x.target.name === "email") {
       setEmail(x.target.value);
     }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    alert(
-      `Submitting name: ${name} username: ${username} password:${password} email:${email}`
-    );
-    toggle();
-    props.toggleLogin();
+    props.signUpUser({
+      name: name,
+      username: username,
+      password: password,
+      email: email
+    });
+    if (props.signUpUser) {
+      alert(
+        `Submitting name: ${name} username: ${username} password:${password} email:${email}`
+      );
+      toggle();
+      props.toggleLogin();
+    } else {
+      alert("error");
+    }
   };
 
-  const handleUsernameCheck = () => {
-    //need to prevent duplicate before submit to db
-    return null;
-  };
   return (
     <>
       <Button color="primary" onClick={toggle}>
-        SignUp
+        SIGN UP
         {buttonLabel}
       </Button>
       <Modal
-        // style={{
-        //   transform: "scale(0.8)",
-        //   opacity: "0.8"
-        // }}
+        style={{
+          transform: "scale(0.8)"
+        }}
         isOpen={modal}
         toggle={toggle}
         className={className}
       >
         <Form onSubmit={handleSubmit}>
-          <ModalHeader toggle={toggle}>SignUp</ModalHeader>
+          <ModalHeader toggle={toggle}>SIGN UP</ModalHeader>
           <ModalBody>
             <FormGroup>
               <Input
@@ -142,15 +166,17 @@ const SignupModal = props => {
                 placeholder="example@domain.com"
                 value={email}
                 onChange={handleInput}
-                {...(validateEmail(email)
+                {...(password.length >= 6
                   ? { valid: true }
-                  : { invalid: true })}
+                  : validateEmail(email)
+                  ? { invalid: true }
+                  : "")}
               />
               <FormFeedback></FormFeedback>
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary">Login</Button>
+            <Button color="primary">SIGN UP</Button>
             <Button color="secondary" onClick={toggle}>
               Cancel
             </Button>
