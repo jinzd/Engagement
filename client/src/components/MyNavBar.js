@@ -11,6 +11,7 @@ import {
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
+  Button,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
@@ -42,10 +43,29 @@ const MyNavBar = props => {
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            <NavItem className={"d-flex flex-column"}>
-              <LoginModal />
-              <SignupModal toggleLogin={props.toggleLogin} />
-            </NavItem>
+            {props.loggedIn ? (
+              <Button color="primary" onClick={props.logoutUser}>
+                LOG OUT
+              </Button>
+            ) : (
+              <NavItem className={"d-flex flex-column"}>
+                <LoginModal
+                  loginUser={props.loginUser}
+                  toggleLogin={props.toggleLogin}
+                />
+                <SignupModal
+                  signUpUser={props.signUpUser}
+                  toggleLogin={props.toggleLogin}
+                />
+              </NavItem>
+            )}
+            {/* <NavItem className={"d-flex flex-column"}>
+              <LoginModal toggleLogin={props.toggleLogin} />
+              <SignupModal
+                signUpUser={props.signUpUser}
+                toggleLogin={props.toggleLogin}
+              />
+            </NavItem> */}
           </Nav>
         </Collapse>
       </Navbar>
