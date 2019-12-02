@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import Webcam from 'react-webcam'
 import webcamRef from 'react-webcam'
 import {Button, Col, Row} from 'reactstrap'
-
+import {useHistory} from "react-router-dom";
 
 const WebcamView = (props) => 
 {
@@ -14,21 +14,25 @@ const WebcamView = (props) =>
     const afterScreenshot = props.afterScreenshot;
     const intervalMiliSeconds = 5000
     const camWidth = Math.max(Math.min(window.innerWidth * 7/10, 500), 250)
+    let history = useHistory()
 
     const startCaptureTimer = () => {
       if(!toggle){
         setToggle(true)
-        setButtonText('Stop')
+        setButtonText('Pause')
         setButtonColor('danger')
         setTimerHandler(setInterval(capture,intervalMiliSeconds))
       } else {
-        setToggle(false)
-        setButtonText('Start')
-        setButtonColor('success')
-        clearInterval(timerHandler)
+        stopTimer()
       }
     }
     
+    const stopTimer = () =>{
+      setToggle(false)
+      setButtonText('Start')
+      setButtonColor('success')
+      clearInterval(timerHandler)
+    }
     var dataURItoBuffer = function (dataURL, callback) {
       var buff = new Buffer(dataURL.replace(/^data:image\/(png|gif|jpeg);base64,/, ''), 'base64');
       callback(buff);
@@ -50,6 +54,11 @@ const WebcamView = (props) =>
       facingMode:'user'
     }
 
+    const endLiveSession = () =>{
+      stopTimer();
+      history.push("./dashboard")
+    }
+
     return(
     <>
       <Row>
@@ -60,6 +69,7 @@ const WebcamView = (props) =>
       <Row>
         <Col>
         <Button color={buttonColor} onClick={() => startCaptureTimer()}>{buttonText}</Button>
+        <Button color='info' onClick={() => endLiveSession()}>End</Button>
         </Col>
       </Row>
     </>

@@ -1,0 +1,27 @@
+.dashboard-col-top {
+    height: 15vh;
+    width: 90vh;
+    border: 1px solid black;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-col-bottom {
+    height: 68vh;
+    width: 45vh;
+    border: 1px solid black;
+    margin: auto;
+}
+
+.profilepic {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
+
+.scroll-session {
+    overflow: auto;
+    height: 90%;
+    width: 100%;    
+}

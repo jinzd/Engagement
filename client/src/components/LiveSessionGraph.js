@@ -5,7 +5,7 @@ import {CardBody, CardTitle, CardSubtitle, Card, Container, Row, Col} from 'reac
 import WebcamView from './WebcamView'
 import EngagementGraph from './EngagementGraph'
 
-class LiveSession extends React.Component{
+class LiveSessionGraph extends React.Component{
 
   constructor (props){
     super(props)
@@ -31,7 +31,7 @@ class LiveSession extends React.Component{
     this.subscriptionKey = process.env.REACT_APP_MICROSOFT_API_KEY
     this.uriBaseFaceApi = process.env.REACT_APP_MICROSOFT_FACE_API
     this.urlLiveDataEndpoint = process.env.REACT_APP_REST_LIVE_DATA
-    this.auth = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzUyMDMxMDksImlhdCI6MTU3NTExNjcwOSwic3ViIjoyfQ.wsW9rTk30B2vTQuvkWUVNBxv-UIjBYxneF6o6ddXOC8"
+    this.auth = localStorage.getItem('userToken')
     this.params = {
       "returnFaceAttributes":"emotion"
     }
@@ -57,7 +57,7 @@ class LiveSession extends React.Component{
     axios({
       method:'post',
       url:this.urlLiveDataEndpoint,
-      data:{'data':data, 'timestamp': Date.now(), 'session_id': 2},
+      data:{'data':data, 'timestamp': Date.now(), 'session_id': this.props.session_id},
       headers:{'Authorization': 'Bearer ' + this.auth}
     }).then(res=>{
       this.setState({
@@ -114,4 +114,4 @@ class LiveSession extends React.Component{
   }
 }
 
-export default LiveSession
+export default LiveSessionGraph

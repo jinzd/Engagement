@@ -37,19 +37,20 @@ class EngagementGraph extends React.Component{
       updated:''
     }
     this.urlGetEngagementGraphs = process.env.REACT_APP_REST_HISTORIC_DATA
-    this.auth = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzUyMDMxMDksImlhdCI6MTU3NTExNjcwOSwic3ViIjoyfQ.wsW9rTk30B2vTQuvkWUVNBxv-UIjBYxneF6o6ddXOC8"
+    this.auth = localStorage.getItem('userToken')
     this.timecodeFixed = 0
   }
   
   componentDidMount(){
     this.updateComponent()
   }
-
+  
   componentWillReceiveProps() {
     this.updateComponent()
   }
-
+  
   updateComponent(){
+    
     this.getGraphData((success)=>{
       if(success){
         this.setState({
@@ -66,6 +67,7 @@ class EngagementGraph extends React.Component{
       data:{'session_id': this.props.session_id},
       headers:{'Authorization': 'Bearer ' + this.auth}
     }).then(res=>{
+      debugger
       const mainGraph = res['data']['main']
       const faceCountGraph = res['data']['face_count']
       const highest_emotions = res['data']['raw_emotions']
@@ -126,6 +128,7 @@ class EngagementGraph extends React.Component{
       
       callback(res.status === 200 ? true : false)
     }).catch(error=>{
+      console.log(error)
       callback(false)
     })
   }
