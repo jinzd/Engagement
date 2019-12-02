@@ -65,7 +65,12 @@ def create():
         if session.save():
             response = {
                 'status': 'success',
-                'message': 'Session successfully saved.'
+                'message': 'Session successfully saved.',
+                'session': {
+                    'id': session.id,
+                    'title': session.title,
+                    'session_type': session.session_type
+                }
             }
             return make_response(jsonify(response), 201)
         else:
