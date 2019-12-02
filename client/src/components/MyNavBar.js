@@ -9,11 +9,12 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Button,
-  DropdownMenu,
-  DropdownItem
+  // UncontrolledDropdown,
+  // DropdownToggle,
+  Button
+  // ,
+  // DropdownMenu,
+  // DropdownItem
 } from "reactstrap";
 import SignupModal from "./SignUp";
 import LoginModal from "./Login";
@@ -21,21 +22,31 @@ import LoginModal from "./Login";
 const MyNavBar = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const jwt = localStorage.getItem("userToken");
+  if (jwt) {
+    props.setloggedIn(true);
+  }
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar className="" color="light" light expand="md">
         <NavbarBrand href="/">ENGAGE+</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto " navbar>
-            <NavItem>
-              <NavLink href="/chart">Chart</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/dashboard">Dashboard</NavLink>
-            </NavItem>
+            {props.loggedIn ? (
+              <>
+                <NavItem>
+                  <NavLink href="/users/1">UserProfile</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/dashboard">Dashboard</NavLink>
+                </NavItem>
+              </>
+            ) : (
+              ""
+            )}
 
-            <UncontrolledDropdown direction="down" nav inNavbar>
+            {/* <UncontrolledDropdown direction="down" nav inNavbar>
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
@@ -45,7 +56,7 @@ const MyNavBar = props => {
                 <DropdownItem divider />
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
             {props.loggedIn ? (
               <Button color="primary" onClick={props.logoutUser}>
                 LOG OUT
@@ -53,6 +64,7 @@ const MyNavBar = props => {
             ) : (
               <NavItem className={"d-flex flex-column"}>
                 <LoginModal
+                  actToggle={props.actToggle}
                   loginUser={props.loginUser}
                   toggleLogin={props.toggleLogin}
                 />
@@ -62,13 +74,6 @@ const MyNavBar = props => {
                 />
               </NavItem>
             )}
-            {/* <NavItem className={"d-flex flex-column"}>
-              <LoginModal toggleLogin={props.toggleLogin} />
-              <SignupModal
-                signUpUser={props.signUpUser}
-                toggleLogin={props.toggleLogin}
-              />
-            </NavItem> */}
           </Nav>
         </Collapse>
       </Navbar>
