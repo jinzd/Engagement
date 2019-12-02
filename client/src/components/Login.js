@@ -23,25 +23,25 @@ const LoginModal = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.loginUser({
-      username: username,
-      password: password
-    });
-    if (props.loginUser) {
-      // alert(`username: ${username} password:${password}`);
-      toggle();
-      // props.toggleLogin();
-    } else {
-      alert("error");
-    }
+    props.loginUser(
+      {
+        username: username,
+        password: password
+      },
+      success => {
+        if (success) {
+          toggle();
+          props.setloggedIn(true);
+        }
+      }
+    );
   };
 
   const handleInput = e => {
-    let x = { ...e };
-    if (x.target.name === "username") {
-      setUsername(x.target.value);
-    } else if (x.target.name === "password") {
-      setPassword(x.target.value);
+    if (e.target.name === "username") {
+      setUsername(e.target.value);
+    } else if (e.target.name === "password") {
+      setPassword(e.target.value);
     }
   };
 
