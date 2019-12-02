@@ -47,7 +47,7 @@ const LoginModal = props => {
 
   return (
     <>
-      <Button color="primary" onClick={toggle}>
+      <Button color="dark" onClick={toggle}>
         LOG IN
         {buttonLabel}
       </Button>
@@ -91,7 +91,7 @@ const LoginModal = props => {
           </ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
+              color="dark"
               // onClickCapture={props.toggleLogin}
               // onClick={toggle}
             >

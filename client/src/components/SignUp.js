@@ -79,7 +79,7 @@ const SignupModal = props => {
 
   return (
     <>
-      <Button color="primary" onClick={toggle}>
+      <Button color="dark" onClick={toggle}>
         SIGN UP
         {buttonLabel}
       </Button>
@@ -176,7 +176,7 @@ const SignupModal = props => {
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary">SIGN UP</Button>
+            <Button color="dark">SIGN UP</Button>
             <Button color="secondary" onClick={toggle}>
               Cancel
             </Button>
