@@ -16,25 +16,32 @@ engagements_api_blueprint = Blueprint('engagements_api',
 @engagements_api_blueprint.route('/', methods=['POST'])
 def get_session():
     user = validate_auth(request.headers.get('Authorization'))
-    payload = request.get_json()
-    session_id = payload['session_id']
-
-    main_graph = []
-    face_count_graph = []
     response = {}
-    # moving_average_graph = []
+
     if user:
+        payload = request.get_json()
+        session_id = payload['session_id']
+
+        main_graph = []
+        face_count_graph = []
         raw = get_raw(user, session_id)
         session = Session.get_by_id(session_id)
+        sum_of_emotions = {'anger': 0, 'fear': 0, 'disgust': 0, 'contempt': 0,
+                           'neutral': 0, 'sadness': 0, 'happiness': 0, 'surprise': 0}
+
         for record in raw:
             main_graph.append(
                 {'id': record['id'], 'eng': calculate_engagement(record)})
             face_count_graph.append(
                 {'id': record['id'], 'face_count': record['face_count']})
+            sum_of_emotions = {
+                key: sum_of_emotions[key] + record[key] for key in set(sum_of_emotions)}
+
         response['main'] = main_graph
         response['face_count'] = face_count_graph
+        response['raw_emotions'] =sum_of_emotions
         response['session'] = {
-            'title': session.title, 'session_type': session.session_type, 'description': session.description}
+            'title': session.title, 'session_type': session.session_type, 'description': session.description, 'date':session.created_at}
         return jsonify(response), 200
 
     return response, 204
@@ -44,11 +51,11 @@ def get_session():
 def get_session_raw():
 
     user = validate_auth(request.headers.get('Authorization'))
-    payload = request.get_json()
-    session_id = payload['session_id']
-
     response_data = []
+
     if user:
+        payload = request.get_json()
+        session_id = payload['session_id']
         records_dict = get_raw(user, session_id)
 
         response_data.append({
