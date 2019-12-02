@@ -1,0 +1,83 @@
+// Variables
+$font-stack: Helvetica, sans-serif;
+$primary-color: rgb(0, 0, 0);
+$background-color: rgb(18, 32, 111);
+
+// Google Fonts
+@import url("http://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans:400italic,700italic,400,700");
+
+body {
+  background-color: $background-color;
+}
+
+// h1 {
+//     $sl-font-family--text:
+// }
+
+@mixin button-bg($bg) {
+    background: $bg;
+    &:hover {
+      background: darken($bg, 8%);
+      transition: all 0.3s ease;
+    }
+    &:active {
+      background: darken($bg, 25%);
+    }
+  }
+
+.title {
+  text-align: center;
+  font-family: $font-stack;
+  padding: 75px;
+  color: white;
+}
+
+
+.intro {
+    justify-content: center;
+}
+
+.menu {
+    justify-content: center;
+    text-align: center;
+}
+
+.btnHome {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 2em;
+  justify-content: center;
+}
+
+
+.btn-green {
+  @include button-bg(hsl(293, 24%, 63%));
+  margin: 50px;
+  padding: 50px;
+}
+
+.btn-yellow {
+  @include button-bg(#ebba3e);
+  margin: 50px;
+  padding: 50px;
+}
+
+.btn-red {
+  @include button-bg(#d86356);
+  margin: 50px;
+  padding: 50px;
+}
+
+/*Other Stylez*/
+.wrap {
+  margin: 0 auto;
+  width: 800px;
+  text-align: center;
+}
+
+#name {
+    text-decoration: underline;
+}
+
