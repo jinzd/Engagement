@@ -3,7 +3,9 @@ import MyNavBar from "./components/MyNavBar";
 import MyBarChart from "./components/MyBarChart";
 import { Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
+import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/HomePage";
+import LiveSession from "./pages/LiveSession";
 const App = () => {
   const [currentUser, serCurrentUser] = useState({ user: [] });
   const [loggedIn, setloggedIn] = useState(false);
@@ -75,6 +77,9 @@ const App = () => {
           }}
         />
         <Route path="/chart" component={MyBarChart} />
+
+        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/livesession" component={LiveSession}/>
       </Switch>
     </>
   );
