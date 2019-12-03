@@ -31,7 +31,7 @@ const LoginModal = props => {
       success => {
         if (success) {
           toggle();
-          props.setloggedIn(true);
+          // props.setloggedIn(true);
         }
       }
     );

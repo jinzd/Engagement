@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -20,12 +20,16 @@ import SignupModal from "./SignUp";
 import LoginModal from "./Login";
 
 const MyNavBar = props => {
+  const { setloggedIn } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const jwt = localStorage.getItem("userToken");
-  if (jwt) {
-    props.setloggedIn(true);
-  }
+  useEffect(() => {
+    const jwt = localStorage.getItem("userToken");
+    if (jwt) {
+      setloggedIn(true);
+    }
+  }, []);
+
   return (
     <div>
       <Navbar className="" color="light" light expand="md">
@@ -33,17 +37,15 @@ const MyNavBar = props => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto " navbar>
-            {props.loggedIn ? (
+            {props.loggedIn && (
               <>
                 <NavItem>
-                  <NavLink href="/users/1">UserProfile</NavLink>
+                  <NavLink href="/users">UserProfile</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/dashboard">Dashboard</NavLink>
                 </NavItem>
               </>
-            ) : (
-              ""
             )}
 
             {/* <UncontrolledDropdown direction="down" nav inNavbar>
