@@ -1,68 +1,72 @@
-import axios from 'axios'
-import React from 'react'
-import {LineChart} from 'react-chartkick'
-import {CardBody, CardTitle, CardSubtitle, Card, Container, Row, Col} from 'reactstrap'
-import WebcamView from './WebcamView'
-import EngagementGraph from './EngagementGraph'
+import axios from "axios";
+import React from "react";
+import { CardBody, Card, Container, Row, Col } from "reactstrap";
+import WebcamView from "./WebcamView";
+import EngagementGraph from "./EngagementGraph";
 
-class LiveSessionGraph extends React.Component{
-
-  constructor (props){
-    super(props)
+class LiveSessionGraph extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.darkTheme = {
-      backgroundColor:'#212121',
-      backgroundColorLigher:'#262626',
-      color:'#cccccc',
-      spinner:'light'
-    }
-  
+      backgroundColor: "#212121",
+      backgroundColorLigher: "#262626",
+      color: "#cccccc",
+      spinner: "light"
+    };
+
     this.lightTheme = {
-      backgroundColor:'#ffffff',
-      backgroundColorLigher:'#fcfcfc',
-      color:'#1f1f1f',
-      spinner:'dark'
-    }
+      backgroundColor: "#ffffff",
+      backgroundColorLigher: "#fcfcfc",
+      color: "#1f1f1f",
+      spinner: "dark"
+    };
 
     this.state = {
-      last_updated:'',
-      activeTheme:props.darkMode ? this.darkTheme : this.lightTheme,
-    }
-    this.subscriptionKey = process.env.REACT_APP_MICROSOFT_API_KEY
-    this.uriBaseFaceApi = process.env.REACT_APP_MICROSOFT_FACE_API
-    this.urlLiveDataEndpoint = process.env.REACT_APP_REST_LIVE_DATA
-    this.auth = localStorage.getItem('userToken')
+      last_updated: "",
+      activeTheme: props.darkMode ? this.darkTheme : this.lightTheme
+    };
+    this.subscriptionKey = process.env.REACT_APP_MICROSOFT_API_KEY;
+    this.uriBaseFaceApi = process.env.REACT_APP_MICROSOFT_FACE_API;
+    this.urlLiveDataEndpoint = process.env.REACT_APP_REST_LIVE_DATA;
+    this.auth = localStorage.getItem("userToken");
     this.params = {
-      "returnFaceAttributes":"emotion"
-    }
+      returnFaceAttributes: "emotion"
+    };
   }
 
   processScreenshot(buffer) {
     axios({
-      url:this.uriBaseFaceApi,
-      data:buffer,
-      method: 'post',
+      url: this.uriBaseFaceApi,
+      data: buffer,
+      method: "post",
       params: this.params,
-      headers: {'Content-Type': 'application/octet-stream',
-                'Ocp-Apim-Subscription-Key': this.subscriptionKey}
-    }).then(res=>{
-        this.sendLiveData(res.data)
-      })
+      headers: {
+        "Content-Type": "application/octet-stream",
+        "Ocp-Apim-Subscription-Key": this.subscriptionKey
+      }
+    }).then(res => {
+      this.sendLiveData(res.data);
+    });
   }
-  
-  sendLiveData = (data)=>{
+
+  sendLiveData = data => {
     this.setState({
-      toggleCapture: false,
-    })
+      toggleCapture: false
+    });
     axios({
-      method:'post',
-      url:this.urlLiveDataEndpoint,
-      data:{'data':data, 'timestamp': Date.now(), 'session_id': this.props.session_id},
-      headers:{'Authorization': 'Bearer ' + this.auth}
-    }).then(res=>{
+      method: "post",
+      url: this.urlLiveDataEndpoint,
+      data: {
+        data: data,
+        timestamp: Date.now(),
+        session_id: this.props.session_id
+      },
+      headers: { Authorization: "Bearer " + this.auth }
+    }).then(res => {
       this.setState({
-        last_updated:Date.now()
-      })
+        last_updated: Date.now()
+      });
       // const eng = res['data']['engagement']
       // const timestamp = parseInt(res['data']['timestamp'])
       // const time = new Date(timestamp)
@@ -70,35 +74,46 @@ class LiveSessionGraph extends React.Component{
       // let tempLiveData = {...this.state.liveData, [this.timecodeFixed + 's']:eng}
       // this.timecodeFixed += 5
       // debugger
-    })
-  }
+    });
+  };
 
-  render()
-  {
-    const {backgroundColor, color, backgroundColorLigher} = this.state.activeTheme
-    return(
+  render() {
+    const { color, backgroundColorLigher } = this.state.activeTheme;
+    return (
       <>
-      <Container>
-        <Row>
-          <Col style={{'paddingLeft':10, 'paddingRight':10}}>
-          <Card style={{'backgroundColor':backgroundColorLigher, 'color':color, 'textAlign':'center'}}>
-            <CardBody>
-              <WebcamView afterScreenshot={(buffer)=>this.processScreenshot(buffer)}/>
-            </CardBody>
-          </Card>
-          </Col>
+        <Container>
+          <Row>
+            <Col style={{ paddingLeft: 10, paddingRight: 10 }}>
+              <Card
+                style={{
+                  backgroundColor: backgroundColorLigher,
+                  color: color,
+                  textAlign: "center"
+                }}
+              >
+                <CardBody>
+                  <WebcamView
+                    afterScreenshot={buffer => this.processScreenshot(buffer)}
+                  />
+                </CardBody>
+              </Card>
+            </Col>
           </Row>
           <Row>
             <Col>
-            <EngagementGraph updated={this.state.last_updated} darkMode={this.props.darkMode} session_id={this.props.session_id}></EngagementGraph>
+              <EngagementGraph
+                updated={this.state.last_updated}
+                darkMode={this.props.darkMode}
+                session_id={this.props.session_id}
+              ></EngagementGraph>
             </Col>
           </Row>
-      </Container>
+        </Container>
         {/* <button onClick={() => this.webCamButtonHandler()} value='Start'>Start</button> */}
         {/* <Row>
           <Col sm='4'> */}
-          {/* <div> */}
-            {/* <Card body style={{'padding':0}}>
+        {/* <div> */}
+        {/* <Card body style={{'padding':0}}>
               <CardBody>
                 
               <LineChart library={{backgroundColor: "#eee"}} min={0} xtitle="Time" ytitle="Engagement" height={250} data={this.state.liveData}/>
@@ -106,12 +121,12 @@ class LiveSessionGraph extends React.Component{
                 <CardSubtitle><h5>Session short description</h5></CardSubtitle>
               </CardBody>
             </Card> */}
-          {/* </div> */}
-          {/* </Col>
+        {/* </div> */}
+        {/* </Col>
         </Row> */}
       </>
-    )
+    );
   }
 }
 
-export default LiveSessionGraph
+export default LiveSessionGraph;

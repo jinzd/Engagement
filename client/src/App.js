@@ -8,26 +8,27 @@ import HomePage from "./pages/HomePage";
 import LiveSession from "./pages/LiveSession";
 const App = () => {
   const [user, setUser] = useState([]);
-  const [currentUser, setCurrentUser] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
-  // const [id, setId] = useState(0);
   const history = useHistory();
-  // console.log(`Log In State ${loggedIn}`);
+  const checkLoggedinApi = process.env.REACT_APP_CHECK_LOGGEDIN_API;
+  const signUpApi = process.env.REACT_APP_SIGN_UP;
+  const loginApi = process.env.REACT_APP_LOGIN_API;
 
-  const jwt = localStorage.getItem("userToken");
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:5000/api/v1/users/me`, {
-        headers: { Authorization: `Bearer ${jwt}` }
-      })
-      .then(result => {
-        console.log(result.data);
-        setUser(result.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+    const jwt = localStorage.getItem("userToken");
+    if (loggedIn) {
+      axios
+        .get(checkLoggedinApi, {
+          headers: { Authorization: `Bearer ${jwt}` }
+        })
+        .then(result => {
+          setUser(result.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }, [loggedIn, checkLoggedinApi]);
   const toggleLogin = () => {
     if (loggedIn) {
       setloggedIn(false);
@@ -40,32 +41,25 @@ const App = () => {
 
   const signUpUser = data => {
     axios
-      .post("http://localhost:5000/api/v1/users/new", data)
+      .post(signUpApi, data)
       .then(result => {
-        console.log(result.data);
         localStorage.setItem("userToken", result.data.auth_token);
         localStorage.setItem("userData", JSON.stringify(result.data.user));
         setloggedIn(true);
-        history.push(`/users/${result.data.user.id}`);
+        history.push("/users");
       })
       .catch(error => {
-        console.log(error.response.message);
+        console.log(error);
       });
   };
 
   const loginUser = (data, callback) => {
-    console.log(currentUser);
-    console.log(data);
-
     axios
-      .post("http://localhost:5000/api/v1/login/", data)
+      .post(loginApi, data)
       .then(response => {
-        console.log(response);
         localStorage.setItem("userToken", response.data.auth_token);
         localStorage.setItem("userData", JSON.stringify(response.data.user));
-        setCurrentUser(response.data.user);
         setloggedIn(true);
-        console.log(currentUser);
         callback(true);
       })
       .catch(error => {
@@ -77,6 +71,7 @@ const App = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userData");
     setloggedIn(false);
+    history.push("/");
   };
   return (
     <>

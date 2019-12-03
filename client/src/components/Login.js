@@ -30,8 +30,7 @@ const LoginModal = props => {
       },
       success => {
         if (success) {
-          toggle();
-          // props.setloggedIn(true);
+          // toggle();
         }
       }
     );
@@ -90,13 +89,7 @@ const LoginModal = props => {
             </button>
           </ModalBody>
           <ModalFooter>
-            <Button
-              color="dark"
-              // onClickCapture={props.toggleLogin}
-              // onClick={toggle}
-            >
-              LOG IN
-            </Button>{" "}
+            <Button color="dark">LOG IN</Button>{" "}
             <Button color="secondary" onClick={toggle}>
               Cancel
             </Button>

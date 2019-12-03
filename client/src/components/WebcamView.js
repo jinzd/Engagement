@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import webcamRef from "react-webcam";
 import { Button, Col, Row } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
@@ -45,12 +44,12 @@ const WebcamView = props => {
     dataURItoBuffer(imageSrc, function(buffer) {
       afterScreenshot(buffer);
     });
-  }, [webcamRef]);
+  }, [webcamRef, afterScreenshot]);
 
   const videoConstraints = {
     width: 300,
     height: 300,
-    facingMode: "user"
+    facingMode: { exact: "user" }
   };
 
   const endLiveSession = () => {
@@ -63,7 +62,7 @@ const WebcamView = props => {
       <Row>
         <Col>
           <Webcam
-            facingMode="Facing-Out camera"
+            videoConstraints={videoConstraints}
             audio={false}
             imageSmoothing={true}
             mirrored={true}

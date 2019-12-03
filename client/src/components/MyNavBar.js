@@ -23,12 +23,16 @@ const MyNavBar = props => {
   const { setloggedIn } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
   useEffect(() => {
     const jwt = localStorage.getItem("userToken");
     if (jwt) {
       setloggedIn(true);
     }
-  }, []);
+    return () => {
+      setloggedIn();
+    };
+  }, [setloggedIn]);
 
   return (
     <div>
