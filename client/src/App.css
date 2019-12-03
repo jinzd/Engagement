@@ -21,7 +21,8 @@
 }
 
 .scroll-session {
-  overflow: auto;
+  overflow:scroll;
+
   height: 90%;
   width: 100%;
 }

@@ -14,9 +14,9 @@ const MyCreateSessionModal = (props) => {
 
   return (
     <div>
-      <Button color="primary" onClick={toggle}>{buttonLabel}Create a session</Button>
+      <Button color="primary" onClick={toggle}>{buttonLabel}New Session</Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Create a new session</ModalHeader>
+        <ModalHeader toggle={toggle}>New Session</ModalHeader>
         <ModalBody>
             <MyCreateSession></MyCreateSession>
         </ModalBody>

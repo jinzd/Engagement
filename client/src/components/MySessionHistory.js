@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardText, CardBody, CardTitle, Button } from "reactstrap";
-import axios from "axios";
-import "../App.css";
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button, Col, Row
+  } from 'reactstrap';
+import axios from 'axios';
+import '../App.css';
 
 const MySessionHistory = props => {
   const [history, setHistory] = useState([]);
@@ -20,29 +23,33 @@ const MySessionHistory = props => {
       });
   }, [sessionHistoryApi]);
 
-  return (
-    <>
-      {history.reverse().map(person => (
-        <div key={person.id}>
-          <Card>
-            <CardBody>
-              <CardText>{person.date}</CardText>
-              <CardTitle>{person.title}</CardTitle>
-              <CardText>{person.description}</CardText>
-              <CardText>{person.session_type}</CardText>
-              <Button
-                onClick={() => {
-                  props.viewSessionHistory(person.id);
-                }}
-              >
-                Graph
-              </Button>
-            </CardBody>
-          </Card>
-        </div>
-      ))}
-    </>
-  );
-};
+    const getMinutes = seconds => {
+        var minutes = Math.floor(seconds / 60);
+        var remaining_sec = seconds - minutes * 60;
+        return `${minutes} minutes and ${remaining_sec} seconds`;
+    };
 
-export default MySessionHistory;
+    return (
+        <>
+        {
+        history.reverse().map(person =>
+            <>   
+            <Row>
+                <Col className='padding-10px'>
+                <Card className='dark-card dark-card-border'>
+                    <CardBody>
+                        <CardText>{person.date}</CardText>
+                        <CardTitle>{person.title}</CardTitle>
+                        {/* <CardText>{person.description}</CardText> */}
+                        <CardText>{person.session_type}</CardText>
+                        <Button onClick={()=>{props.viewSessionHistory(person.id)}}>Graph</Button>
+                    </CardBody>
+                </Card>
+                </Col>
+            </Row>
+            </>
+        )
+        }
+        </>
+    )
+}

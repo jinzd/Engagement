@@ -6,6 +6,8 @@ import axios from "axios";
 import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/HomePage";
 import LiveSession from "./pages/LiveSession";
+import Auth from './pages/Auth'
+
 const App = () => {
   const [user, setUser] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
@@ -88,9 +90,11 @@ const App = () => {
           exact
           path="/"
           component={() => {
-            return <HomePage />;
+            return <Auth />;
           }}
         />
+        <Route path="/chart" component={MyBarChart} />
+        <Route path="/auth" component={Auth} />
         <Route
           path="/users"
           component={() => {
