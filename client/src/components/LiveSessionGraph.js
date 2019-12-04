@@ -10,7 +10,7 @@ class LiveSessionGraph extends React.Component {
 
     this.darkTheme = {
       backgroundColor: "#212121",
-      backgroundColorLigher: "black",
+      backgroundColorLigher: "#0a0a0a",
       color: "#cccccc",
       spinner: "light"
     };
@@ -81,20 +81,22 @@ class LiveSessionGraph extends React.Component {
     const { color, backgroundColorLigher } = this.darkTheme;
     return (
       <>
+        <div className='body-pattern'>
+
         <Container>
           <Row>
-            <Col className="align-center dark-card-border" >
+            <Col className="align-center dark-card-border"  style={{paddingTop:20}}>
               <Card className='rounded-corner'
                 style={{
                   backgroundColor: backgroundColorLigher,
                   color: color,
                   textAlign: "center"
                 }}
-              >
+                >
                 <CardBody>
                   <WebcamView
                     afterScreenshot={buffer => this.processScreenshot(buffer)}
-                  />
+                    />
                 </CardBody>
               </Card>
             </Col>
@@ -105,10 +107,11 @@ class LiveSessionGraph extends React.Component {
                 updated={this.state.last_updated}
                 darkMode={true}
                 session_id={this.props.session_id}
-              ></EngagementGraph>
+                ></EngagementGraph>
             </Col>
           </Row>
         </Container>
+        </div>
         {/* <button onClick={() => this.webCamButtonHandler()} value='Start'>Start</button> */}
         {/* <Row>
           <Col sm='4'> */}

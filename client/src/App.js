@@ -100,9 +100,10 @@ const App = () => {
         />
         <Route path="/livesession" component={LiveSession} />
       </Switch>
+    
+      <div className='footer small-20px'>
+        <small>&#9400; Copyright 2019. Find us on <a style={{'fontWeight':"bold"}} href='https://github.com/jinzd/Engagement'>Github</a></small>
 
-      <div className="footer">
-        <p>Next Academy</p>
       </div>
     </>
   );

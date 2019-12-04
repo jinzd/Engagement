@@ -18,7 +18,8 @@ const MyCreateSession = props => {
 
   let formData = {
     title: sessionData.title[0],
-    session_type: sessionData.session_type[0],
+    session_type: 'Lecture',
+    // session_type: sessionData.session_type[0],
     description: sessionData.description[0]
   };
 
@@ -70,13 +71,12 @@ const MyCreateSession = props => {
           <Label for="session_type">Session Type:</Label>
           <Input
             type="select"
-            multiple={true}
+            multiple={false}
             name="session_type"
             id="session_type"
             value={sessionData.session_type}
             onChange={handleInput}
           >
-            <option>Options</option>
             <option>Lecture</option>
           </Input>
         </FormGroup>
@@ -91,7 +91,7 @@ const MyCreateSession = props => {
             onChange={handleInput}
           />
         </FormGroup>
-        <Button
+        <Button color='info' className='dark-btn-full-width rounded-corner'
           disabled={
             formData.title && formData.session_type && formData.description
               ? false

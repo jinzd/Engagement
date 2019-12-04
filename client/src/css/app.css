@@ -32,7 +32,7 @@ body{
 }
 
 .dark-navbar{
-  background-color: #000000;
+  background-color: #0a0a0a;
   color: white;
 }
 
@@ -52,12 +52,31 @@ body{
 .dark-form {
   background-color: #0a0a0a;
   color: white;
+  border-bottom: black;
 }
 
 .dark-form input{
   background-color: #2c2d36;
   border: none;
   color: white;
+}
+
+.dark-form select{
+  background-color: #2c2d36;
+  border: none;
+  color: white;
+}
+
+.dark-form select:focus{
+  background-color:#11121c;
+  color: white;
+  border: none;
+}
+
+.dark-form select:active{
+  background-color:#11121c;
+  color: white;
+  border: none;
 }
 
 .dark-form input:focus {
