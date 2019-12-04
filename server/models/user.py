@@ -28,7 +28,7 @@ class User(BaseModel):
             self.errors.append('Email already in use')
 
         # check if password meets criteria and return hashed password
-        if not re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$])[\w\d@#$]{6,12}$", self.password):
+        if not re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#!$])[\w\d@#!$]{6,12}$", self.password):
             self.errors.append('Password must be at least 6 characters.\nPassword must contain capital letter.\nPassword must have one special character')
         else: 
             self.password = generate_password_hash(self.password)
