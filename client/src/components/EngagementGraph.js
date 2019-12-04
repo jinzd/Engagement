@@ -21,7 +21,7 @@ class EngagementGraph extends React.Component {
       backgroundColor: "#1b162e",
       backgroundColorLigher: "#261e42",
       color: "#cccccc",
-      spinner: "light"
+      spinner: "light",
     };
 
     this.lightTheme = {
@@ -168,6 +168,7 @@ class EngagementGraph extends React.Component {
                 display: this.state.isLoading ? "block" : "none",
                 backgroundColor: backgroundColor,
                 color: color,
+                
               }}
             >
               <CardBody className="justify-content-center">
@@ -186,7 +187,8 @@ class EngagementGraph extends React.Component {
                 color: color,
                 paddingLeft: 5,
                 paddingRight: 5,
-                paddingTop: 0
+                paddingTop: 0,
+                opacity:0.6
               }}
             >
               <CardBody>
@@ -194,16 +196,16 @@ class EngagementGraph extends React.Component {
                   <Col>
                   <Row>
                     <Col>
-                    <CardText
-                      style={{ fontWeight: "lighter", textAlign: "left" }}
-                      >
-                      {this.state.type} | {this.state.duration} (
-                      {this.state.date}, {this.state.time})
-                    </CardText>
-                    <CardText style={{fontWeight: "bold", float:'left'}}>
-                    <h2>  
+
+                      <CardText
+                        style={{ fontWeight: "lighter", textAlign: "left" }}
+                        >
+                        {this.state.type} | {this.state.duration} (
+                        {this.state.date}, {this.state.time})
+                      </CardText>
+
+                    <CardText style={{ fontSize:'4vh', fontWeight: "bold"}}>
                     {this.state.title}
-                    </h2>
                     </CardText>
                     {/* <Card
                       className='rounded-corner'

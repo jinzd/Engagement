@@ -12,7 +12,7 @@ const Dashboard = props => {
       <div style={{ paddingBottom: 45 }}>
         <MyNavBar logoutUser={props.logoutUser} />
       </div>
-      <Container className="dark padding-40px" style={{ top: 20 }}>
+      <Container className="dark padding-40px" style={{ paddingTop: 40 }}>
         <Row>
           <Col>
             <Row>
