@@ -18,7 +18,7 @@ const WebcamView = props => {
     if (!toggle) {
       setToggle(true);
       setButtonText("Pause");
-      setButtonColor("danger");
+      setButtonColor("info");
       setTimerHandler(setInterval(capture, intervalMiliSeconds));
     } else {
       stopTimer();
@@ -74,10 +74,10 @@ const WebcamView = props => {
       </Row>
       <Row>
         <Col>
-          <Button color={buttonColor} onClick={() => startCaptureTimer()}>
+          <Button style={{'padding':'10px 20px'}} color={buttonColor} onClick={() => startCaptureTimer()}>
             {buttonText}
           </Button>
-          <Button color="info" onClick={() => endLiveSession()}>
+          <Button style={{'padding':'10px 20px'}} color="danger" onClick={() => endLiveSession()}>
             End
           </Button>
         </Col>
