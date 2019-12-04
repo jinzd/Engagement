@@ -18,8 +18,8 @@ class EngagementGraph extends React.Component {
   constructor(props) {
     super(props);
     this.darkTheme = {
-      backgroundColor: "#212121",
-      backgroundColorLigher: "#262626",
+      backgroundColor: "#1b162e",
+      backgroundColorLigher: "#261e42",
       color: "#cccccc",
       spinner: "light"
     };
@@ -167,7 +167,7 @@ class EngagementGraph extends React.Component {
               style={{
                 display: this.state.isLoading ? "block" : "none",
                 backgroundColor: backgroundColor,
-                color: color
+                color: color,
               }}
             >
               <CardBody className="justify-content-center">
@@ -176,6 +176,10 @@ class EngagementGraph extends React.Component {
             </Card>
             <Card
               body
+              onClick={() => {
+                        this.setState({ isOpen: !this.state.isOpen });
+                      }}
+              className='rounded-corner dark-card-border'
               style={{
                 display: this.state.isLoading ? "none" : "block",
                 backgroundColor: backgroundColor,
@@ -188,65 +192,78 @@ class EngagementGraph extends React.Component {
               <CardBody>
                 <Row>
                   <Col>
+                  <Row>
+                    <Col>
                     <CardText
                       style={{ fontWeight: "lighter", textAlign: "left" }}
-                    >
+                      >
                       {this.state.type} | {this.state.duration} (
                       {this.state.date}, {this.state.time})
                     </CardText>
-                    <CardText
-                      style={{
-                        fontWeight: "lighter",
-                        fontSize: "1.7vh",
-                        textAlign: "left"
-                      }}
-                    ></CardText>
-                    <Button
+                    <CardText style={{fontWeight: "bold", float:'left'}}>
+                    <h2>  
+                    {this.state.title}
+                    </h2>
+                    </CardText>
+                    {/* <Card
+                      className='rounded-corner'
                       color="info"
                       onClick={() => {
                         this.setState({ isOpen: !this.state.isOpen });
                       }}
-                      style={{ fontWeight: "bold" }}
-                    >
-                      {this.state.title}
-                    </Button>
-                    <Row style={{ paddingTop: 20, paddingBottom: 20 }}>
-                      <Col>
-                        <Collapse isOpen={this.state.isOpen}>
+                      style={{ fontWeight: "bold", float:'left'}}
+                      >
+                      <CardBody>
+                      </CardBody>
+                    </Card> */}
+                      </Col>
+                    </Row>
+                    <Row>
+
+                      <Col style={{paddingTop:'10px', paddingBottom:'10px'}}>
+                        {/* <Collapse isOpen={this.state.isOpen}> */}
                           <Card
+                            className='rounded-corner'
                             style={{
                               backgroundColor: backgroundColorLigher,
                               color: color,
                               borderWidth: 0,
-                              padding: 10
+                              padding: 0,
+                              // float:"left"
                             }}
                             body
                           >
-                            <CardBody style={{ paddingLeft: 5 }}>
+                            <CardBody style={{ paddingLeft: 20 }}>
                               <CardText>{this.state.description}</CardText>
                             </CardBody>
                           </Card>
-                        </Collapse>
+                        {/* </Collapse> */}
                       </Col>
                     </Row>
-                  </Col>
+                    </Col>
+                    {/* </Row>
+                    <Row style={{ paddingTop: 20, paddingBottom: 20 }}> */}
+                  {/* </Col> */}
                   <Col lg="4">
-                    <Card style={{ backgroundColor: backgroundColorLigher }}>
+                    <Card className='rounded-corner' style={{ backgroundColor: backgroundColorLigher }}>
                       <CardBody>
                         <CardText
                           style={{ fontWeight: "bold", textAlign: "left" }}
-                        >
+                          >
                           Expressions %
                         </CardText>
                         <ColumnChart
                           colors={["#ffb700"]}
                           height={80}
                           data={this.state.highestEmotionsPieChartData}
-                        ></ColumnChart>
+                          ></ColumnChart>
                       </CardBody>
                     </Card>
                   </Col>
-                </Row>
+                          </Row>
+                {/* </Row> */}
+                <Collapse isOpen={this.state.isOpen}>
+
                 <Row>
                   <Col>
                     <CardText style={{ fontWeight: "bold", textAlign: "left" }}>
@@ -257,23 +274,24 @@ class EngagementGraph extends React.Component {
                       colors={["#6840ed"]}
                       height={100}
                       data={this.state.mainGraphData}
-                    />
+                      />
                     <Row>
                       <Col>
                         <CardText
                           style={{ fontWeight: "bold", textAlign: "left" }}
-                        >
+                          >
                           Attendance
                         </CardText>
                         <ColumnChart
                           colors={["#40edae"]}
                           height={100}
                           data={this.state.faceCountGraphData}
-                        ></ColumnChart>
+                          ></ColumnChart>
                       </Col>
                     </Row>
                   </Col>
                 </Row>
+                </Collapse>
               </CardBody>
             </Card>
           </Col>

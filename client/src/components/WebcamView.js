@@ -11,7 +11,7 @@ const WebcamView = props => {
   const webcamRef = useRef(null);
   const afterScreenshot = props.afterScreenshot;
   const intervalMiliSeconds = 5000;
-  const camWidth = Math.max(Math.min((window.innerWidth * 7) / 10, 500), 250);
+  const camWidth = Math.max(Math.min((window.innerWidth * 7) / 10, 700), 250);
   let history = useHistory();
 
   const startCaptureTimer = () => {
@@ -62,7 +62,7 @@ const WebcamView = props => {
       <Row>
         <Col>
           <Webcam
-            videoConstraints={videoConstraints}
+            // videoConstraints={videoConstraints}
             audio={false}
             imageSmoothing={true}
             mirrored={true}

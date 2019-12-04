@@ -22,8 +22,17 @@ body{
   border-radius: 12px;
 }
 
+.rounded-corner-50{
+  border-radius: 50px;
+}
+
 .dark {
   background-color: #11121c;
+  color: white;
+}
+
+.dark-navbar{
+  background-color: #000000;
   color: white;
 }
 
@@ -34,6 +43,10 @@ body{
 
 .dark-card-border{
   border-color: rgb(58, 47, 79);
+}
+
+.dark-card-hover :hover{
+  background-color: #2e274b;
 }
 
 .dark-form {
@@ -71,6 +84,12 @@ body{
   display: block;
 }
 
+.align-center{
+  justify-content: flex-end;
+  /* display: flex; */
+  text-align: center;
+}
+
 .no-margin{
   margin: 0;
 }
@@ -81,7 +100,7 @@ body{
 
 .logo {
   min-width: 200px;
-  min-height: 100px;
+  min-height: 50px;
   background-position: center;
   background-repeat: no-repeat;
   background-image: url('../images/logo.png');
@@ -103,6 +122,29 @@ body{
 }
 
 .align-left{
-  
   justify-content:flex-start;
+}
+
+.align-right{
+  padding: 0;
+  display: flex;
+  justify-content:flex-end;
+}
+
+.shadow {
+  box-shadow:20px 0px 120px #000000;
+}
+
+.sticky {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer{
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding-bottom: 20px;
 }

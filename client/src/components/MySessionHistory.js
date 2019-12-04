@@ -4,6 +4,7 @@ import {
     CardTitle, CardSubtitle, Button, Col, Row
   } from 'reactstrap';
 import axios from 'axios';
+import EngagementGraph from '../components/EngagementGraph'
 import '../App.css';
 
 const MySessionHistory = props => {
@@ -11,9 +12,10 @@ const MySessionHistory = props => {
   const sessionHistoryApi = process.env.REACT_APP_SESSION_HISTORY_API;
   useEffect(() => {
     const jwt = localStorage.getItem("userToken");
+    // debugger
     axios
       .get(sessionHistoryApi, {
-        headers: { authorization: `Bearer ${jwt}` }
+        headers: { "Authorization": `Bearer ${jwt}` }
       })
       .then(result => {
         setHistory(result.data.sessions);
@@ -23,33 +25,29 @@ const MySessionHistory = props => {
       });
   }, [sessionHistoryApi]);
 
-    const getMinutes = seconds => {
-        var minutes = Math.floor(seconds / 60);
-        var remaining_sec = seconds - minutes * 60;
-        return `${minutes} minutes and ${remaining_sec} seconds`;
-    };
-
     return (
         <>
         {
-        history.reverse().map(person =>
-            <>   
-            <Row>
-                <Col className='padding-10px'>
-                <Card className='dark-card dark-card-border'>
-                    <CardBody>
+        history.reverse().map((person,index) =>
+            
+            <Row key={index}>
+                <Col className='no-padding'>
+                  <EngagementGraph darkMode={true} session_id={person.id}></EngagementGraph>
+                {/* <Card className='dark-card dark-card-border shadow dark-card-hover'>
+                    <CardBody onClick={()=>{props.viewSessionHistory(person.id)}}>
                         <CardText>{person.date}</CardText>
                         <CardTitle>{person.title}</CardTitle>
-                        {/* <CardText>{person.description}</CardText> */}
+                        
                         <CardText>{person.session_type}</CardText>
-                        <Button onClick={()=>{props.viewSessionHistory(person.id)}}>Graph</Button>
+                        
                     </CardBody>
-                </Card>
+                </Card> */}
                 </Col>
             </Row>
-            </>
         )
         }
         </>
     )
 }
+
+export default MySessionHistory;

@@ -9,6 +9,8 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Col,
+  Row,
   // UncontrolledDropdown,
   // DropdownToggle,
   Button
@@ -20,9 +22,12 @@ import SignupModal from "./SignUp";
 import LoginModal from "./Login";
 
 const MyNavBar = props => {
-  const { setloggedIn } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  const [loggedIn, setloggedIn] = useState(false)
+  const toggle = () => {
+
+    setIsOpen(!isOpen)
+  };
 
   useEffect(() => {
     const jwt = localStorage.getItem("userToken");
@@ -35,20 +40,23 @@ const MyNavBar = props => {
   }, [setloggedIn]);
 
   return (
-    <div>
-      <Navbar className="" color="light" light expand="md">
-        <NavbarBrand href="/">ENGAGE+</NavbarBrand>
+    <div className='sticky shadow'>
+      <Navbar className="dark-navbar" dark expand="md">
+        <NavbarBrand href="/">
+          <div className="logo"></div>
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto " navbar>
-            {props.loggedIn && (
+        <Collapse className='align-center' isOpen={isOpen} navbar>
+          <Nav navbar>
+            {loggedIn && (
               <>
-                <NavItem>
+                {/* <NavItem  style={{'color':'white'}}>
                   <NavLink href="/users">UserProfile</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/dashboard">Dashboard</NavLink>
-                </NavItem>
+                </NavItem> */}
+                {/* <NavItem>
+                  <NavLink style={{'color':'white'}} href="/dashboard">Dashboard</NavLink>
+                </NavItem> */}
+
               </>
             )}
 
@@ -63,10 +71,17 @@ const MyNavBar = props => {
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown> */}
-            {props.loggedIn ? (
-              <Button color="primary" onClick={props.logoutUser}>
-                LOG OUT
-              </Button>
+            {loggedIn ? (
+              <NavItem>
+                <NavLink style={{'color':'white'}} onClick={props.logoutUser}>Log out</NavLink>
+              </NavItem>
+              // <Row>
+              //   <Col className='align-right'>
+              //   <Button color="link" onClick={props.logoutUser}>
+              //   LOG OUT
+              //   </Button>
+              //   </Col>
+              // </Row>
             ) : (
               <NavItem className={"d-flex flex-column"}>
                 <LoginModal

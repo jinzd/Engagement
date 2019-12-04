@@ -36,7 +36,7 @@ const SignIn = props => {
     <Container className='middle-screen dark body-pattern'>
       <Row className='no-margin no-padding'>
         <Col>
-          <Card className='rounded-corner dark-form small-20px'>
+          <Card className='rounded-corner dark-form small-20px shadow'>
           <Row>
             <Col className='logo'>
             </Col>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import MyNavBar from "./components/MyNavBar";
-import MyProfile from "./pages/MyProfile";
+// import MyProfile from "./pages/MyProfile";
 import { Route, Switch, useHistory } from "react-router-dom";
+
 import axios from "axios";
 import Dashboard from "./pages/Dashboard";
-import HomePage from "./pages/HomePage";
 import LiveSession from "./pages/LiveSession";
-import Auth from './pages/Auth'
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import "./css/app.css"
 
 const App = () => {
   const [user, setUser] = useState([]);
@@ -21,7 +23,7 @@ const App = () => {
     if (loggedIn) {
       axios
         .get(checkLoggedinApi, {
-          headers: { Authorization: `Bearer ${jwt}` }
+          headers: { "Authorization": `Bearer ${jwt}` }
         })
         .then(result => {
           setUser(result.data);
@@ -31,41 +33,49 @@ const App = () => {
         });
     }
   }, [loggedIn, checkLoggedinApi]);
-  const toggleLogin = () => {
-    if (loggedIn) {
-      setloggedIn(false);
-      history.push("/");
-    } else {
-      setloggedIn(true);
-      history.push("/");
-    }
-  };
+  // const toggleLogin = () => {
+  //   if (loggedIn) {
+  //     setloggedIn(false);
+  //     history.push("/");
+  //   } else {
+  //     setloggedIn(true);
+  //     history.push("/");
+  //   }
+  // };
 
   const signUpUser = data => {
-    axios
-      .post(signUpApi, data)
+    axios({
+      method:'post',
+      url:signUpApi,
+      data:JSON.stringify(data),
+      headers:{'Content-Type':'application/json'}
+    })
       .then(result => {
         localStorage.setItem("userToken", result.data.auth_token);
         localStorage.setItem("userData", JSON.stringify(result.data.user));
         setloggedIn(true);
-        history.push("/users");
+        history.push("/dashboard");
       })
       .catch(error => {
-        console.log(error);
+        alert(error.response.data.message)
       });
   };
 
   const loginUser = (data, callback) => {
-    axios
-      .post(loginApi, data)
+    axios({
+      method:'post',
+      url:loginApi,
+      data:JSON.stringify(data),
+      headers:{"Content-Type" : "application/json"}
+    })
       .then(response => {
         localStorage.setItem("userToken", response.data.auth_token);
         localStorage.setItem("userData", JSON.stringify(response.data.user));
         setloggedIn(true);
+        history.push("/dashboard");
         callback(true);
       })
       .catch(error => {
-        console.log(error);
         callback(false);
       });
   };
@@ -77,33 +87,30 @@ const App = () => {
   };
   return (
     <>
-      <MyNavBar
+      {/* <MyNavBar
         logoutUser={logoutUser}
         setloggedIn={setloggedIn}
         loggedIn={loggedIn}
         signUpUser={signUpUser}
         loginUser={loginUser}
         toggleLogin={toggleLogin}
-      />
+      /> */}
       <Switch>
         <Route
           exact
           path="/"
-          component={() => {
-            return <Auth />;
+          render={()=> <SignIn loginUser={loginUser}/>} />;
           }}
         />
-        <Route path="/chart" component={MyBarChart} />
-        <Route path="/auth" component={Auth} />
-        <Route
-          path="/users"
-          component={() => {
-            return <MyProfile user={user} />;
-          }}
-        />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/signup" render={()=> <SignUp signUpUser={signUpUser}/>} />
+        <Route path="/signin" render={()=> <SignIn loginUser={loginUser}/>} />
+        <Route path="/dashboard" render={()=> <Dashboard signUpUser={signUpUser} loggedIn={loggedIn} setloggedIn={setloggedIn} logoutUser={logoutUser} loginUser={loginUser}/>} />
         <Route path="/livesession" component={LiveSession} />
       </Switch>
+      
+      <div className='footer'>
+        <p>Next Academy</p>
+      </div>
     </>
   );
 };
