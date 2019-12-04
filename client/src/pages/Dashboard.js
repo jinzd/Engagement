@@ -3,18 +3,16 @@ import "../App.css";
 import { Container, Row, Col } from "reactstrap";
 import MySessionHistory from "../components/MySessionHistory";
 import MyCreateSessionModal from "../components/MyCreateSessionModal";
-import MyNavBar from "../components/MyNavBar"
+import MyNavBar from "../components/MyNavBar";
 
 const Dashboard = props => {
   const [sessionID, setSessionID] = useState(-1);
   return (
     <>
-    <div style={{paddingBottom:45}}>
-    <MyNavBar>
-
-    </MyNavBar>
-    </div>
-      <Container className='dark padding-40px' style={{'top':20}} >
+      <div style={{ paddingBottom: 45 }}>
+        <MyNavBar logoutUser={props.logoutUser} />
+      </div>
+      <Container className="dark padding-40px" style={{ top: 20 }}>
         <Row>
           <Col>
             <Row>
@@ -42,15 +40,15 @@ const Dashboard = props => {
           <Col className="no-border">
             <MyCreateSessionModal></MyCreateSessionModal>
           </Col>
-          </Row>
-          <Row>
-            <Col sm="12">
+        </Row>
+        <Row>
+          <Col sm="12">
             <div>
               <MySessionHistory
                 viewSessionHistory={id => {
                   setSessionID(id);
                 }}
-                ></MySessionHistory>
+              ></MySessionHistory>
             </div>
           </Col>
           {/* <Col className="no-border" sm="8">
@@ -63,7 +61,6 @@ const Dashboard = props => {
         </Row>
       </Container>
     </>
-              
   );
 };
 
