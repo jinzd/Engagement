@@ -21,7 +21,7 @@ class EngagementGraph extends React.Component {
       backgroundColor: "#1b162e",
       backgroundColorLigher: "#261e42",
       color: "#cccccc",
-      spinner: "light",
+      spinner: "light"
     };
 
     this.lightTheme = {
@@ -167,8 +167,7 @@ class EngagementGraph extends React.Component {
               style={{
                 display: this.state.isLoading ? "block" : "none",
                 backgroundColor: backgroundColor,
-                color: color,
-                
+                color: color
               }}
             >
               <CardBody className="justify-content-center">
@@ -178,36 +177,36 @@ class EngagementGraph extends React.Component {
             <Card
               body
               onClick={() => {
-                        this.setState({ isOpen: !this.state.isOpen });
-                      }}
-              className='rounded-corner dark-card-border'
+                this.setState({ isOpen: !this.state.isOpen });
+              }}
+              className="rounded-corner dark-card-border"
               style={{
                 display: this.state.isLoading ? "none" : "block",
                 backgroundColor: backgroundColor,
                 color: color,
                 paddingLeft: 5,
                 paddingRight: 5,
-                paddingTop: 0,
-                opacity:0.6
+                paddingTop: 0
               }}
             >
               <CardBody>
                 <Row>
                   <Col>
-                  <Row>
-                    <Col>
-
-                      <CardText
-                        style={{ fontWeight: "lighter", textAlign: "left" }}
+                    <Row>
+                      <Col>
+                        <CardText
+                          style={{ fontWeight: "lighter", textAlign: "left" }}
                         >
-                        {this.state.type} | {this.state.duration} (
-                        {this.state.date}, {this.state.time})
-                      </CardText>
+                          {this.state.type} | {this.state.duration} (
+                          {this.state.date}, {this.state.time})
+                        </CardText>
 
-                    <CardText style={{ fontSize:'4vh', fontWeight: "bold"}}>
-                    {this.state.title}
-                    </CardText>
-                    {/* <Card
+                        <CardText
+                          style={{ fontSize: "4vh", fontWeight: "bold" }}
+                        >
+                          {this.state.title}
+                        </CardText>
+                        {/* <Card
                       className='rounded-corner'
                       color="info"
                       onClick={() => {
@@ -221,78 +220,83 @@ class EngagementGraph extends React.Component {
                       </Col>
                     </Row>
                     <Row>
-
-                      <Col style={{paddingTop:'10px', paddingBottom:'10px'}}>
+                      <Col
+                        style={{ paddingTop: "10px", paddingBottom: "10px" }}
+                      >
                         {/* <Collapse isOpen={this.state.isOpen}> */}
-                          <Card
-                            className='rounded-corner'
-                            style={{
-                              backgroundColor: backgroundColorLigher,
-                              color: color,
-                              borderWidth: 0,
-                              padding: 0,
-                              // float:"left"
-                            }}
-                            body
-                          >
-                            <CardBody style={{ paddingLeft: 20 }}>
-                              <CardText>{this.state.description}</CardText>
-                            </CardBody>
-                          </Card>
+                        <Card
+                          className="rounded-corner"
+                          style={{
+                            backgroundColor: backgroundColorLigher,
+                            color: color,
+                            borderWidth: 0,
+                            padding: 0
+                            // float:"left"
+                          }}
+                          body
+                        >
+                          <CardBody style={{ paddingLeft: 20 }}>
+                            <CardText>{this.state.description}</CardText>
+                          </CardBody>
+                        </Card>
                         {/* </Collapse> */}
                       </Col>
                     </Row>
-                    </Col>
-                    {/* </Row>
+                  </Col>
+                  {/* </Row>
                     <Row style={{ paddingTop: 20, paddingBottom: 20 }}> */}
                   {/* </Col> */}
                   <Col lg="4">
-                    <Card className='rounded-corner' style={{ backgroundColor: backgroundColorLigher }}>
+                    <Card
+                      className="rounded-corner"
+                      style={{ backgroundColor: backgroundColorLigher }}
+                    >
                       <CardBody>
                         <CardText
                           style={{ fontWeight: "bold", textAlign: "left" }}
-                          >
+                        >
                           Expressions %
                         </CardText>
                         <ColumnChart
                           colors={["#ffb700"]}
                           height={80}
                           data={this.state.highestEmotionsPieChartData}
-                          ></ColumnChart>
+                        ></ColumnChart>
                       </CardBody>
                     </Card>
                   </Col>
-                          </Row>
+                </Row>
                 {/* </Row> */}
                 <Collapse isOpen={this.state.isOpen}>
-
-                <Row>
-                  <Col>
-                    <CardText style={{ fontWeight: "bold", textAlign: "left" }}>
-                      Engagement Index
-                    </CardText>
-                    <AreaChart
-                      dataset={{ borderWidth: 3 }}
-                      colors={["#6840ed"]}
-                      height={100}
-                      data={this.state.mainGraphData}
+                  <Row>
+                    <Col>
+                      <CardText
+                        style={{ fontWeight: "bold", textAlign: "left" }}
+                      >
+                        Engagement Index
+                      </CardText>
+                      <AreaChart
+                        dataset={{ borderWidth: 3 }}
+                        colors={["#6840ed"]}
+                        height={100}
+                        data={this.state.mainGraphData}
                       />
-                    <Row>
-                      <Col>
-                        <CardText
-                          style={{ fontWeight: "bold", textAlign: "left" }}
+                      <Row>
+                        <Col>
+                          <CardText
+                            style={{ fontWeight: "bold", textAlign: "left" }}
                           >
-                          Attendance
-                        </CardText>
-                        <ColumnChart
-                          colors={["#40edae"]}
-                          height={100}
-                          data={this.state.faceCountGraphData}
+                            Attendance
+                          </CardText>
+                          <ColumnChart
+                            colors={["#40edae"]}
+                            height={100}
+                            data={this.state.faceCountGraphData}
                           ></ColumnChart>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
                 </Collapse>
               </CardBody>
             </Card>
