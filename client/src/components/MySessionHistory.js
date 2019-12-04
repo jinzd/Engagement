@@ -27,7 +27,8 @@ const MySessionHistory = props => {
 
     return (
         <>
-        {
+        { 
+        history.length > 0 ? 
         history.reverse().map((person,index) =>
             
             <Row key={index}>
@@ -44,7 +45,18 @@ const MySessionHistory = props => {
                 </Card> */}
                 </Col>
             </Row>
-        )
+        ) :
+          <Row>
+            <Col className='align-center'>
+              <Card className='dark no-border padding-40px' >
+                <CardBody>
+                  <CardText style={{'fontSize':'3vh', 'fontWeight':'lighter'}}>
+                    Start by creating a New Session
+                  </CardText>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
         }
         </>
     )

@@ -10,7 +10,7 @@
 }
 
 body{
-  background-color: #11121c;
+  background-color: #131727;
 }
 
 .body-pattern {
@@ -27,12 +27,12 @@ body{
 }
 
 .dark {
-  background-color: #11121c;
+  background-color: #131727;
   color: white;
 }
 
 .dark-navbar{
-  background-color: #0a0a0a;
+  background-color: #151b2c;
   color: white;
 }
 
@@ -162,6 +162,8 @@ body{
 }
 
 .footer{
+  position: relative;
+  bottom:0;
   width: 100%;
   text-align: center;
   color: white;
