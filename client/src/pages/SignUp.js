@@ -69,7 +69,7 @@ const SignUp = props => {
                     <Input
                       type="text"
                       name="name"
-                      placeholder="Full Name"
+                      placeholder="Full name"
                       value={name}
                       onChange={handleInput}
                       {...(name.length >= 6
@@ -117,7 +117,7 @@ const SignUp = props => {
                     <Input
                       type="password"
                       name="password"
-                      placeholder="Password (min 6 character)"
+                      placeholder="Password (min 6 characters)"
                       value={password}
                       onChange={handleInput}
                       {...(password.length >= 6
@@ -149,8 +149,7 @@ const SignUp = props => {
                     className="dark-btn-full-width"
                     color="info"
                   >
-                    {" "}
-                    Create{" "}
+                    Create account
                   </Button>
                 </Form>
                 <Button
