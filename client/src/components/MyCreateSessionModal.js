@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Col, Row} from 'reactstrap';
 import MyCreateSession from '../components/MyCreateSession';
 
 const MyCreateSessionModal = (props) => {
@@ -14,9 +14,13 @@ const MyCreateSessionModal = (props) => {
 
   return (
     <div>
-      <Button color="primary" onClick={toggle}>{buttonLabel}Create a session</Button>
+      <Row>
+      <Col className='align-right'>
+       <Button style={{'paddingRight':20, 'paddingLeft':20}} className='rounded-corner-50' color="primary" onClick={toggle}>{buttonLabel}New Session</Button>
+      </Col>
+      </Row>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Create a new session</ModalHeader>
+        <ModalHeader toggle={toggle}>New Session</ModalHeader>
         <ModalBody>
             <MyCreateSession></MyCreateSession>
         </ModalBody>

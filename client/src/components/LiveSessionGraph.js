@@ -10,7 +10,7 @@ class LiveSessionGraph extends React.Component {
 
     this.darkTheme = {
       backgroundColor: "#212121",
-      backgroundColorLigher: "#262626",
+      backgroundColorLigher: "black",
       color: "#cccccc",
       spinner: "light"
     };
@@ -78,13 +78,13 @@ class LiveSessionGraph extends React.Component {
   };
 
   render() {
-    const { color, backgroundColorLigher } = this.state.activeTheme;
+    const { color, backgroundColorLigher } = this.darkTheme;
     return (
       <>
         <Container>
           <Row>
-            <Col style={{ paddingLeft: 10, paddingRight: 10 }}>
-              <Card
+            <Col className="align-center dark-card-border" >
+              <Card className='rounded-corner'
                 style={{
                   backgroundColor: backgroundColorLigher,
                   color: color,
@@ -103,7 +103,7 @@ class LiveSessionGraph extends React.Component {
             <Col>
               <EngagementGraph
                 updated={this.state.last_updated}
-                darkMode={this.props.darkMode}
+                darkMode={true}
                 session_id={this.props.session_id}
               ></EngagementGraph>
             </Col>

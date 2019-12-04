@@ -3,49 +3,67 @@ import "../App.css";
 import { Container, Row, Col } from "reactstrap";
 import MySessionHistory from "../components/MySessionHistory";
 import MyCreateSessionModal from "../components/MyCreateSessionModal";
-import EngagementGraph from "../components/EngagementGraph";
+import MyNavBar from "../components/MyNavBar"
 
 const Dashboard = props => {
   const [sessionID, setSessionID] = useState(-1);
   return (
     <>
-      <Container>
+    <div style={{paddingBottom:45}}>
+    <MyNavBar>
+
+    </MyNavBar>
+    </div>
+      <Container className='dark padding-40px' style={{'top':20}} >
         <Row>
-          <Col className="dashboard-col-top">
-            <div>
+          <Col>
+            <Row>
+              <Col>
+                {/* <Row style={{'display':'flex-start'}}>
+                  <Col sm='2' xs='2' className='logo align-left'>
+                  </Col>
+                </Row> */}
+              </Col>
+            </Row>
+            {/* <div>
               <h2>Dashboard</h2>
               <p>Audience engaged, visualised</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <img
-                src="https://www.livelingua.com/img/profilesTeachers/103/Guillaume-Deneufbourg-Square_Profile_S.jpg"
-                className="profilepic"
-                alt="profile_pic"
+              src="https://www.livelingua.com/img/profilesTeachers/103/Guillaume-Deneufbourg-Square_Profile_S.jpg"
+              className="profilepic"
+              alt="profile_pic"
               />
-            </div>
+            </div> */}
           </Col>
         </Row>
         <Row>
-          <Col className="dashboard-col-bottom" sm="4">
+          <Col className="no-border">
             <MyCreateSessionModal></MyCreateSessionModal>
-            <div className="scroll-session">
+          </Col>
+          </Row>
+          <Row>
+            <Col sm="12">
+            <div>
               <MySessionHistory
                 viewSessionHistory={id => {
                   setSessionID(id);
                 }}
-              ></MySessionHistory>
+                ></MySessionHistory>
             </div>
           </Col>
-          <Col className="dashboard-col-bottom" sm="8">
+          {/* <Col className="no-border" sm="8">
             {sessionID > 0 ? (
-              <EngagementGraph session_id={sessionID}></EngagementGraph>
-            ) : (
-              <p>Please choose a session</p>
-            )}
-          </Col>
+              <EngagementGraph darkMode={true} session_id={sessionID}></EngagementGraph>
+              ) : (
+                <p>Please choose a session</p>
+                )}
+              </Col> */}
         </Row>
       </Container>
     </>
+              
   );
 };
 

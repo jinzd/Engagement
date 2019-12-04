@@ -41,7 +41,7 @@ const MyCreateSession = props => {
     if (responseId > 0) {
       history.push({
         pathname: "/livesession",
-        state: { session_id: responseId }
+        state: { session_id: responseId, darkMode: true }
       });
     }
   });
