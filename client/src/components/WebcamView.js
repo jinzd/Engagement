@@ -71,7 +71,7 @@ const WebcamView = props => {
       <Row>
         <Col>
           <Webcam
-            // videoConstraints={videoConstraints}
+            videoConstraints={videoConstraints}
             audio={false}
             imageSmoothing={true}
             mirrored={true}
