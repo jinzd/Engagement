@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { Button, Col, Row } from "reactstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
 const WebcamView = props => {
   const [toggle, setToggle] = useState(false);
@@ -13,6 +13,15 @@ const WebcamView = props => {
   const intervalMiliSeconds = 5000;
   const camWidth = Math.max(Math.min((window.innerWidth * 7) / 10, 700), 250);
   let history = useHistory();
+  const route = history.location.pathname
+
+  useEffect(() =>{
+    history.listen((location, action)=>{
+      if (history.location.pathname != route){
+        stopTimer()
+      }
+    })
+  })
 
   const startCaptureTimer = () => {
     if (!toggle) {
@@ -86,4 +95,4 @@ const WebcamView = props => {
   );
 };
 
-export default WebcamView;
+export default withRouter(WebcamView);
