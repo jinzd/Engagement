@@ -5,7 +5,6 @@ import {
   Col,
   Card,
   CardBody,
-  Media,
   Form,
   FormGroup,
   Button,
@@ -15,14 +14,11 @@ import {
 import { useHistory } from "react-router-dom";
 
 const SignUp = props => {
-  const { buttonLabel, className } = props;
-
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [usernameValid /*, setusernameValid*/] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [formReady, setFormReady] = useState(false);
   const history = useHistory();
 
   const handleInput = e => {

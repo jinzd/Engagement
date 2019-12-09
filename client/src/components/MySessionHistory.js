@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Col, Row
-  } from 'reactstrap';
-import axios from 'axios';
-import EngagementGraph from '../components/EngagementGraph'
-import '../App.css';
+import { Card, CardText, CardBody, Col, Row } from "reactstrap";
+import axios from "axios";
+import EngagementGraph from "../components/EngagementGraph";
+import "../App.css";
 
 const MySessionHistory = props => {
   const [history, setHistory] = useState([]);
@@ -15,7 +12,7 @@ const MySessionHistory = props => {
     // debugger
     axios
       .get(sessionHistoryApi, {
-        headers: { "Authorization": `Bearer ${jwt}` }
+        headers: { Authorization: `Bearer ${jwt}` }
       })
       .then(result => {
         setHistory(result.data.sessions);
@@ -25,41 +22,34 @@ const MySessionHistory = props => {
       });
   }, [sessionHistoryApi]);
 
-    return (
-        <>
-        { 
-        history.length > 0 ? 
-        history.reverse().map((person,index) =>
-            
-            <Row key={index}>
-                <Col className='no-padding'>
-                  <EngagementGraph darkMode={true} session_id={person.id}></EngagementGraph>
-                {/* <Card className='dark-card dark-card-border shadow dark-card-hover'>
-                    <CardBody onClick={()=>{props.viewSessionHistory(person.id)}}>
-                        <CardText>{person.date}</CardText>
-                        <CardTitle>{person.title}</CardTitle>
-                        
-                        <CardText>{person.session_type}</CardText>
-                        
-                    </CardBody>
-                </Card> */}
-                </Col>
-            </Row>
-        ) :
-          <Row>
-            <Col className='align-center'>
-              <Card className='dark no-border padding-40px' >
-                <CardBody>
-                  <CardText style={{'fontSize':'3vh', 'fontWeight':'lighter'}}>
-                    Start by creating a New Session
-                  </CardText>
-                </CardBody>
-              </Card>
+  return (
+    <>
+      {history.length > 0 ? (
+        history.reverse().map((person, index) => (
+          <Row key={index}>
+            <Col className="no-padding">
+              <EngagementGraph
+                darkMode={true}
+                session_id={person.id}
+              ></EngagementGraph>
             </Col>
           </Row>
-        }
-        </>
-    )
-}
+        ))
+      ) : (
+        <Row>
+          <Col className="align-center">
+            <Card className="dark no-border padding-40px">
+              <CardBody>
+                <CardText style={{ fontSize: "3vh", fontWeight: "lighter" }}>
+                  Start by creating a New Session
+                </CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      )}
+    </>
+  );
+};
 
 export default MySessionHistory;

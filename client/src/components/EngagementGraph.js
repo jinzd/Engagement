@@ -3,9 +3,7 @@ import "chart.js";
 import axios from "axios";
 import React from "react";
 import {
-  // Container,
   Spinner,
-  Button,
   Collapse,
   Row,
   Col,
@@ -159,7 +157,6 @@ class EngagementGraph extends React.Component {
     } = this.state.activeTheme;
     return (
       <>
-        {/* <Container > */}
         <Row>
           <Col style={{ padding: 10 }}>
             <Card
@@ -206,24 +203,12 @@ class EngagementGraph extends React.Component {
                         >
                           {this.state.title}
                         </CardText>
-                        {/* <Card
-                      className='rounded-corner'
-                      color="info"
-                      onClick={() => {
-                        this.setState({ isOpen: !this.state.isOpen });
-                      }}
-                      style={{ fontWeight: "bold", float:'left'}}
-                      >
-                      <CardBody>
-                      </CardBody>
-                    </Card> */}
                       </Col>
                     </Row>
                     <Row>
                       <Col
                         style={{ paddingTop: "10px", paddingBottom: "10px" }}
                       >
-                        {/* <Collapse isOpen={this.state.isOpen}> */}
                         <Card
                           className="rounded-corner"
                           style={{
@@ -239,13 +224,9 @@ class EngagementGraph extends React.Component {
                             <CardText>{this.state.description}</CardText>
                           </CardBody>
                         </Card>
-                        {/* </Collapse> */}
                       </Col>
                     </Row>
                   </Col>
-                  {/* </Row>
-                    <Row style={{ paddingTop: 20, paddingBottom: 20 }}> */}
-                  {/* </Col> */}
                   <Col lg="4">
                     <Card
                       className="rounded-corner"
@@ -266,7 +247,6 @@ class EngagementGraph extends React.Component {
                     </Card>
                   </Col>
                 </Row>
-                {/* </Row> */}
                 <Collapse isOpen={this.state.isOpen}>
                   <Row>
                     <Col>
@@ -302,7 +282,6 @@ class EngagementGraph extends React.Component {
             </Card>
           </Col>
         </Row>
-        {/* </Container> */}
       </>
     );
   }

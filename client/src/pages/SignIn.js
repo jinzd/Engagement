@@ -1,9 +1,18 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {Container, Row, Col, Card, CardBody, Media, Form, FormGroup, Button, Input,} from 'reactstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Form,
+  FormGroup,
+  Button,
+  Input
+} from "reactstrap";
 
 const SignIn = props => {
-  const { buttonLabel, className } = props;
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const history = useHistory();
@@ -31,29 +40,25 @@ const SignIn = props => {
       setPassword(e.target.value);
     }
   };
-  return(
+  return (
     <>
-    <Container className='middle-screen dark body-pattern'>
-      <Row className='no-margin no-padding'>
-        <Col>
-          <Card className='rounded-corner dark-form small-20px shadow'>
-          <Row>
-            <Col className='logo'>
-            </Col>
-          </Row>
-            <CardBody>
-              <Form onSubmit={handleSubmit}>
-              {/* <ModalHeader toggle={toggle}>Login</ModalHeader> */}
-              {/* <ModalBody> */}
-                {/* {" "} */}
-                <FormGroup>
-                  <Input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={handleInput}
-                  />
+      <Container className="middle-screen dark body-pattern">
+        <Row className="no-margin no-padding">
+          <Col>
+            <Card className="rounded-corner dark-form small-20px shadow">
+              <Row>
+                <Col className="logo"></Col>
+              </Row>
+              <CardBody>
+                <Form onSubmit={handleSubmit}>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      value={username}
+                      onChange={handleInput}
+                    />
                   </FormGroup>
                   <FormGroup>
                     <Input
@@ -63,23 +68,25 @@ const SignIn = props => {
                       value={password}
                       onChange={handleInput}
                     />
-                </FormGroup>
-                <Button className='dark-btn-full-width center' color='info'>
-                  Login
-                </Button>
-                <Button onClick={()=>history.push('/signup')} color='link' className="center">
-                  
-                  No account? Sign up here
-                </Button>
-              {/* </ModalBody> */}
-            </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                  </FormGroup>
+                  <Button className="dark-btn-full-width center" color="info">
+                    Login
+                  </Button>
+                  <Button
+                    onClick={() => history.push("/signup")}
+                    color="link"
+                    className="center"
+                  >
+                    No account? Sign up here
+                  </Button>
+                </Form>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
