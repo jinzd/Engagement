@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MyNavBar from "./components/MyNavBar";
-
 import { Route, Switch, useHistory } from "react-router-dom";
 
 import axios from "axios";
@@ -100,10 +98,17 @@ const App = () => {
         />
         <Route path="/livesession" component={LiveSession} />
       </Switch>
-    
-      <div className='footer small-20px'>
-        <small>&#9400; Copyright 2019. Find us <a style={{'fontWeight':"bold"}} href='https://airtable.com/shrYavWJ4PYjnHNRa'>here</a></small>
 
+      <div className="footer small-20px">
+        <small>
+          &#9400; Copyright 2019. Find us{" "}
+          <a
+            style={{ fontWeight: "bold" }}
+            href="https://airtable.com/shrYavWJ4PYjnHNRa"
+          >
+            here
+          </a>
+        </small>
       </div>
     </>
   );
